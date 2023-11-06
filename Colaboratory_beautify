@@ -1,0 +1,30 @@
+# 如何美化圖片
+import cv2
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+# 讀取圖片
+image = cv2.imread('123.png')
+
+# 銳化圖片
+sharpened_image = cv2.GaussianBlur(image, (0, 0), 3)
+
+# 模糊圖片
+blurred_image = cv2.GaussianBlur(image, (5, 5), 0)
+
+# 調整對比度和亮度
+alpha = 1.5  # 對比度因子
+beta = 50   # 亮度調整值
+adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+
+# 色彩修正（增加飽和度）
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+hsv[:, :, 1] = hsv[:, :, 1] * 1.5  # 增加飽和度
+color_adjusted_image = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+# 顯示原始圖片和處理後的圖片
+cv2_imshow(image)
+cv2_imshow(sharpened_image)
+cv2_imshow(blurred_image)
+cv2_imshow(adjusted_image)
+cv2_imshow(color_adjusted_image)
